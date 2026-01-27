@@ -1,0 +1,62 @@
+/* Logo */
+.tabbar-logo {
+    display: flex;
+    justify-content: center;
+    padding: 16px 0 20px;
+}
+
+.tabbar-logo img {
+    height: 64px;
+    /* nhỏ lại cho admin UI */
+    width: auto;
+    max-width: 160px;
+    object-fit: contain;
+}
+
+/* Menu list */
+.tabbar-menu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 0 8px;
+}
+
+/* Menu item */
+.tabbar-menu-list a {
+    width: 100%;
+    padding: 10px 14px;
+    text-decoration: none;
+    color: #98a2b3;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* icon – text gọn */
+    border-radius: 10px;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+/* Hover */
+.tabbar-menu-list a:hover {
+    background: #f0f6ff;
+    color: #1677ff;
+}
+
+/* Active */
+.tabbar-menu-list a.active {
+    background: #e6f0ff;
+    color: #1677ff;
+    font-weight: 600;
+}
+
+/* Nếu có icon (SVG / font-icon) */
+.tabbar-menu-list a svg,
+.tabbar-menu-list a i {
+    font-size: 18px;
+    color: inherit;
+}
+
+/* Optional: divider mỏng giữa các nhóm */
+.tabbar-menu-list a+a {
+    margin-top: 2px;
+}
