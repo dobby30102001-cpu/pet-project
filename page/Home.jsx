@@ -133,6 +133,8 @@ export default function Home() {
 
 
 
+    console.log("list =", list);
+    console.log("isArray =", Array.isArray(list));
 
 
     return (
@@ -183,6 +185,7 @@ export default function Home() {
                                     <td>{item.address}</td>
                                     <td>{moment(item.createdAt).format("YYYY-MM-DD")}</td>
                                     <td>
+
                                         <ButtonGroup size="sm">
                                             <Button variant="info" onClick={() => handleView(item.id)}>
                                                 View
@@ -209,6 +212,9 @@ export default function Home() {
             <Pagination>
                 {Array.from({ length: Math.ceil(total / paging.limit) }, (_, i) => {
                     const number = i + 1;
+                    console.log("list =", list);
+                    console.log("isArray =", Array.isArray(list));
+
                     return (
                         <Pagination.Item
                             key={number}
