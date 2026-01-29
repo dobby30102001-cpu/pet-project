@@ -2,6 +2,7 @@ import { Modal, Form, Button } from "react-bootstrap";
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import axiosClient from "../API/axiosClient";
 
 
 
@@ -29,12 +30,14 @@ export default function Add(props) {
 
     const handleSave = async () => {
         try {
+            if (!item.firstName || !item.lastName) {
+                toast.error("First Name và Last Name không được để trống!");
+                return;
+            }
             console.log("state", item);
 
-            await axios.post(
-                "https://696e13e5d7bacd2dd715a7ff.mockapi.io/test",
-                item
-            );
+            const res = await axiosClient.post("/users", item);
+            console.log("create res:", res?.data);
 
             toast("Add user successfully!");
             props.handleSaveCreate?.();

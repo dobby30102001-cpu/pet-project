@@ -67,39 +67,51 @@
 // }
 
 
-import { useEffect, useState } from "react";
-import { getUsers } from "../API/AuthApi";
+import axiosClient from "./axiosClient";
+import { toast } from "react-toastify";
 
-export default function Home() {
-    const [list, setList] = useState([]);
-    const [page, setPage] = useState(1);
-    const [limit, setLimit] = useState(10);
-    const [search, setSearch] = useState("");
-
-    const fetchData = async () => {
-        const params = { page, limit };
-        if (search) params.search = search;
-
-        const data = await getUsers(params);
-        setList(data);
+// GET /users?page=&limit=&search=
+export async function getDataUser(page, limit, search) {
+    const params = {
+        page: page - 1,     // UI 1-> backend 0
+        size: limit,        // limit -> size
     };
 
-    useEffect(() => {
-        fetchData();
-    }, [page, limit, search]);
+    if (search) params.search = search;
 
-    return (
-        <div>
-            <input
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="search..."
-            />
-
-            {list?.map((u) => (
-                <div key={u.id}>{u.username}</div>
-            ))}
-        </div>
-    );
+    return axiosClient.get("/users", { params });
 }
+
+export async function DeleteUser(userID) {
+    try {
+        const res = await axiosClient.delete(`/users/${userID}`);
+        toast("Delete user successfully!");
+        return res.data;
+    } catch (e) {
+        toast("API Error: Unable to delete user.");
+        throw e;
+    }
+}
+
+export async function UpdateAccounte(userID, data) {
+    try {
+        const res = await axiosClient.put(`/users/${userID}`, data);
+        toast("Update user successfully!");
+        return res.data;
+    } catch (e) {
+        toast("API Error: Unable to update user.");
+        throw e;
+    }
+}
+
+export async function DetailUser(userID) {
+    try {
+        const res = await axiosClient.get(`/users/${userID}`);
+        return res.data;
+    } catch (e) {
+        toast("API Error: Unable to fetch user detail.");
+        throw e;
+    }
+}
+
 

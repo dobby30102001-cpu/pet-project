@@ -98,6 +98,8 @@ export default function Home() {
         setTermsearch(e.target.value)
     }
 
+    const [reload, setReload] = useState(0);
+
     const handleSaveCreate = () => {
         setOpenCreate(false);
         setPaging((prev) => {
@@ -106,18 +108,20 @@ export default function Home() {
                 page: 1
             }
         })
+        setReload((r) => r + 1);
     }
+
 
     useEffect(() => {
         async function fetchData() {
             const response = await API.getDataUser(paging.page, paging.limit, search);
             console.log("API raw:", response);
             console.log("API data:", response?.data);
-            setList(response.data)
-            setTotal(50)
+            setList(response.data.data.content ?? []);
+            setTotal(response.data.data.totalElements ?? 0);
         }
         fetchData();
-    }, [paging, search]);
+    }, [paging, search, reload]);
 
 
     const handleCreate = () => { setOpenCreate(true) }
@@ -129,6 +133,7 @@ export default function Home() {
     const handleCloseCreate = () => {
         setOpenCreate(false);
     };
+
 
 
 
