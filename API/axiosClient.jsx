@@ -1,18 +1,4 @@
-// import axios from "axios";
 
-// const axiosClient = axios.create({
-//     baseURL: "http://localhost:8080/api/auth",
-// });
-
-// axiosClient.interceptors.response.use(
-//     (res) => res,
-//     (err) => {
-//         console.error(err);
-//         throw err;
-//     }
-// );
-
-// export default axiosClient;
 
 import axios from "axios";
 
@@ -46,4 +32,9 @@ axiosClient.interceptors.response.use(
     }
 );
 
+<<<<<<< HEAD
 export default axiosClient;
+=======
+export default axiosClient;
+console.log("USING apiClient baseURL =", "http://localhost:8080/api");
+>>>>>>> 4232587281837408e3db8507696e3d14ddfeeb47
