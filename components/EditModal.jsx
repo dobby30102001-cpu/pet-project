@@ -5,13 +5,14 @@ import { useEffect, useState } from "react";
 import { UpdateAccounte } from "../API/Home";
 
 function EditModal(props) {
-    const [item, setItem] = useState({ firstName: "", lastName: "", address: "" })
+    const [item, setItem] = useState({ firstName: "", lastName: "", address: "", createdAt: "" });
 
     useEffect(() => {
         setItem({
             firstName: props.accountSelected.firstName ?? "",
             lastName: props.accountSelected.lastName ?? "",
             address: props.accountSelected.address ?? "",
+            createdAt: props.accountSelected.createdAt ?? ""
         })
     }, [props.accountSelected]);
 
@@ -37,7 +38,8 @@ function EditModal(props) {
         setItem({
             firstName: '',
             lastName: '',
-            address: ''
+            address: '',
+            createdAt: ''
         })
         props.handleClose();
     }
@@ -93,8 +95,10 @@ function EditModal(props) {
                             <Form.Label>Create At</Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder="Create At" name='createdAt' value={item.createdAt}
+                                placeholder="Create At"
                                 defaultValue={props.accountSelected.createdAt}
+                                name='createdAt'
+                                value={item.createdAt}
                                 onChange={handleChangeInput}
                             />
                         </Form.Group>

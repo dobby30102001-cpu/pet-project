@@ -21,14 +21,29 @@ const axiosClient = axios.create({
     headers: { "Content-Type": "application/json" },
 });
 
+
+axiosClient.interceptors.request.use(
+    (config) => {
+        const token =
+            localStorage.getItem("token") ||
+            localStorage.getItem("accessToken") ||
+            sessionStorage.getItem("token") ||
+            sessionStorage.getItem("accessToken");
+
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+    },
+    (error) => Promise.reject(error)
+);
+
 axiosClient.interceptors.response.use(
     (res) => res,
     (err) => {
-        // giữ log để debug
         console.error("AXIOS ERROR:", err?.response?.status, err?.response?.data);
         return Promise.reject(err);
     }
 );
 
 export default axiosClient;
-console.log("USING apiClient baseURL =", "http://localhost:8080/api");

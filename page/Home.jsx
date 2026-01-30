@@ -59,14 +59,24 @@ export default function Home() {
         // setCheck(true);
     }
 
+
     const handleEdit = async (userID) => {
-        // const item = list.find((i) => i.id === userID)
-        const item = await API.DetailUser(userID);
-        setAccountSelected(item)
-        setShowEdit(true)
+        try {
+            const res = await API.DetailUser(userID);
+            console.log("Detail user API:", res);
+
+            //  lấy đúng data thực
+            const userData = res?.data?.data ?? res?.data ?? res;
+
+            setAccountSelected(userData);
+            setShowEdit(true);
+        } catch (err) {
+            console.error(err);
+        }
+        console.log("accountSelected:", accountSelected);
 
 
-    }
+    };
 
     const handleClickPage = (page) => {
         setPaging((prev) => {
